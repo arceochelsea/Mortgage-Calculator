@@ -10,25 +10,39 @@ public class MortgageCalculator {
 
         int monthsInAYear = 12;
         int percentage = 100;
-
-        //create scanner class to get input from users
-        //print out on the terminal
-        //next method to read the data
+        int principal = 0;
+        float monthlyInterest = 0;
+        int numOfPayments = 0;
 
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Principle: ");
-        long principal = scanner.nextLong();
-        System.out.println("Your principle is " + principal);
 
-        System.out.print("Annual Interest Rate: ");
-        float annualInterest = scanner.nextFloat();
-        System.out.println("Your Annual Interest Rate is " + annualInterest);
-        float monthlyInterest = annualInterest / percentage / monthsInAYear;
+        while (true) {
+            System.out.print("Principle: ");
+            principal = scanner.nextInt();
+            if (principal >= 1000 && principal <= 1_000_000)
+                break;
+            System.out.println("Enter a value between 1000 and 1000000");
+        }
 
-        System.out.print("Period: ");
-        int years = scanner.nextInt();
-        int numOfPayments = years * monthsInAYear;
-        System.out.println("Your Period is " + years);
+        while (true) {
+            System.out.print("Annual Interest Rate: ");
+            float annualInterest = scanner.nextFloat();
+            if (annualInterest >= 1 && annualInterest <= 30) {
+                monthlyInterest = annualInterest / percentage / monthsInAYear;
+                break;
+            }
+            System.out.println("Enter a value between 1 and 30");
+        }
+
+        while (true) {
+            System.out.print("Period: (Years): ");
+            byte years = scanner.nextByte();
+            if (years >= 1 && years <= 30) {
+                numOfPayments = years * monthsInAYear;
+                break;
+            }
+            System.out.println("Enter a value between 1 and 30.");
+        }
 
         /*
         M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1]
@@ -46,3 +60,4 @@ public class MortgageCalculator {
     }
 
 }
+
